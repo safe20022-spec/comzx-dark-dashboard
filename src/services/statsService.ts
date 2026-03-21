@@ -1,5 +1,5 @@
 // src/services/statsService.ts
-import type { StatData } from "../Types/stats";
+import type { StatData } from "../Types/indec";
 
 export const fetchDashboardStats = async (): Promise<StatData[]> => {
   // Simulate API delay

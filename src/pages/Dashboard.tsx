@@ -1,36 +1,67 @@
-// src/pages/Dashboard.tsx
-import { useQuery } from '@tanstack/react-query';
-import { fetchDashboardStats } from '../services/statsService';
 import StatsCard from '../components/Dashboard/StatsCard';
+import SalesChart from '../components/Dashboard/SalesChart';
+import CategoryChart from '../components/Dashboard/CategoryChart';
+import ProductTable from '../components/Dashboard/ProductTable';
+import { 
+  useDailySales, 
+  useCategorySales, 
+  useTopProducts, 
+  useDashboardData,
+  useDashboardStats 
+} from '../hooks/useDashboard';
 
 const Dashboard = () => {
-  // Using React Query for data fetching (Best Practice)
-  const { data: stats, isLoading, error } = useQuery({
-    queryKey: ['dashboard-stats'],
-    queryFn: fetchDashboardStats,
-    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
-  });
+  const { data: orders, isLoading } = useDashboardData();
+  
+  // استخراج البيانات والبطاقات
+  const stats = useDashboardStats(orders); 
+  const dailySales = useDailySales(orders);
+  const categorySales = useCategorySales(orders);
+  const topProducts = useTopProducts(orders);
+  
+  const totalWeeklyRevenue = dailySales.reduce((sum, day) => sum + day.sales, 0);
 
-  if (error) return <div className="text-rose-500">Failed to load stats.</div>;
+  if (isLoading) {
+    return (
+      <div className="space-y-6 animate-pulse">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-32 bg-white/5 rounded-[24px]" />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="lg:col-span-2 h-[400px] bg-white/5 rounded-[24px]" />
+          <div className="h-[400px] bg-white/5 rounded-[24px]" />
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-8">
-      {/* 1. Header Section */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-white">Dashboard Overview</h2>
-      </div>
-
-      {/* 2. Stats Grid */}
+    <div className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {isLoading
-          ? Array(4).fill(0).map((_, i) => <StatsCard key={i} data={null} isLoading={true} />)
-          : stats?.map((item) => (
-              <StatsCard key={item.id} data={item} isLoading={false} />
-            ))
-        }
+        {stats.map((stat, index) => (
+          <StatsCard 
+            key={index} 
+            title={stat.title} 
+            value={stat.value} 
+            icon={stat.icon as "revenue" | "profit" | "orders" | "visitors"} 
+          />
+        ))}
       </div>
 
-      {/* Other sections (Charts, Tables) will follow... */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <SalesChart data={dailySales} />
+        </div>
+        <div>
+          <CategoryChart data={categorySales} total={totalWeeklyRevenue} />
+        </div>
+      </div>
+
+      <div className="w-full">
+        <ProductTable products={topProducts} />
+      </div>
     </div>
   );
 };
