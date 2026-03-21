@@ -10,7 +10,7 @@ export interface Product {
   image: string;
 }
 
-
+// الصورة  التي ارسلتها لك صورة التصميم لقد انتهينا من بناءها وناء مكوناتها واشتقاق البيانات لكل مكون ولكن صفحة dashboard عي في الواقع عبارة عن 3 مناظر يتم التبديل بينها بواسطة ازرار 
 export interface OrderItem {
   productId: string;
   quantity: number;
