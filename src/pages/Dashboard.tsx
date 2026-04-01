@@ -11,7 +11,7 @@ const Dashboard = () => {
   const tabs = [
     { id: 'overview', label: 'Overview' },
     { id: 'sales', label: 'Sales Analytics' },
-    { id: 'products', label: 'Inventory' }, 
+    { id: 'products', label: 'products' }, 
   ] as const;
 
   useEffect(() => {
@@ -24,10 +24,7 @@ const Dashboard = () => {
     <div className="space-y-8 p-8">
       
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-        <div>
-          <h1 className="text-3xl font-bold text-white tracking-tight">Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-1">Monitor your business performance</p>
-        </div>
+        <div/>
         
         <div className="flex bg-[#111111] p-1 rounded-2xl border border-white/5 w-fit">
           {tabs.map((tab) => (

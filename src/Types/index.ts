@@ -5,11 +5,12 @@ export type DashboardTab = 'overview' | 'sales' | 'products';
 export interface Product {
   id: string;
   name: string;
+  category: "Clothing" | "Lingerie" | "Accessories" | "Sportswear" | "Body Fit";
   price: number;
   costPrice: number;
   image: string;
-  category: string;
-  reviews: Review[]; 
+  status: "In Stock" | "Canceled"; // Strict status types
+  reviews: Review[];
 }
 
 export interface Review {
