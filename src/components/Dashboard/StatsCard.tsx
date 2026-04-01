@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, TrendingDown, DollarSign, Users, CreditCard, Box } from 'lucide-react';
+import { TrendingUp, TrendingDown, DollarSign, Users, Box } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 
 

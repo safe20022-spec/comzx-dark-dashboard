@@ -1,7 +1,5 @@
-// src/components/Dashboard/OrderStatusTable.tsx
 import { MoreHorizontal, Circle } from 'lucide-react';
 
-// تعريف الألوان بناءً على طلبك
 const statusConfig: Record<string, { color: string, bg: string, border: string }> = {
   new: { color: 'text-blue-500', bg: 'bg-blue-500/10', border: 'border-blue-500/20' },
   inprogress: { color: 'text-yellow-500', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20' },
@@ -12,7 +10,6 @@ const statusConfig: Record<string, { color: string, bg: string, border: string }
 const OrderStatusTable = ({ orders }: { orders: any[] }) => {
   return (
     <div className="bg-[#111111] rounded-[32px] border border-white/5 overflow-hidden w-full">
-      {/* الرأس - Header */}
       <div className="p-8 border-b border-white/5 flex justify-between items-center">
         <div>
           <h3 className="text-white font-bold text-xl tracking-tight">Order Status</h3>
@@ -23,7 +20,6 @@ const OrderStatusTable = ({ orders }: { orders: any[] }) => {
         </button>
       </div>
 
-      {/* الجدول - Table */}
       <div className="overflow-x-auto">
         <table className="w-full text-left border-collapse">
           <thead>
@@ -34,13 +30,12 @@ const OrderStatusTable = ({ orders }: { orders: any[] }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/[0.02]">
-            {orders.map((order) => {
+            {orders.slice(0, 3).map((order) => {
               const status = order.status?.toLowerCase() || 'new';
               const config = statusConfig[status] || statusConfig.new;
 
               return (
                 <tr key={order.id} className="group hover:bg-white/[0.02] transition-all duration-300">
-                  {/* معرف الطلب */}
                   <td className="px-8 py-5">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-orange-500/10 flex items-center justify-center text-orange-500 font-bold text-[10px]">
@@ -52,7 +47,6 @@ const OrderStatusTable = ({ orders }: { orders: any[] }) => {
                     </div>
                   </td>
 
-                  {/* التاريخ */}
                   <td className="px-8 py-5">
                     <div className="flex flex-col">
                       <span className="text-gray-300 text-xs font-medium">
@@ -62,7 +56,6 @@ const OrderStatusTable = ({ orders }: { orders: any[] }) => {
                     </div>
                   </td>
 
-                  {/* الحالة الملونة */}
                   <td className="px-8 py-5">
                     <span className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full border ${config.bg} ${config.color} ${config.border} text-[10px] font-black uppercase tracking-wider shadow-sm`}>
                       <Circle size={6} fill="currentColor" />
@@ -76,7 +69,6 @@ const OrderStatusTable = ({ orders }: { orders: any[] }) => {
         </table>
       </div>
       
-      {/* التذييل - Footer */}
       <div className="p-6 bg-white/[0.01] text-center border-t border-white/5">
         <button className="text-orange-500 hover:text-orange-400 text-xs font-bold transition-colors uppercase tracking-widest">
           View All Transactions

@@ -1,10 +1,8 @@
-// components/Dashboard/TransactionsCard.tsx
 import { ArrowUpRight, MoreHorizontal } from 'lucide-react';
 
 const TransactionsCard = ({ totalRevenue, categories }: { totalRevenue: number, categories: any[] }) => {
   return (
     <div className="bg-[#111111] p-8 rounded-[32px] border border-white/5 h-full relative overflow-hidden">
-      {/* Header المكون */}
       <div className="flex justify-between items-start mb-10">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-blue-500/10 rounded-lg">
@@ -18,7 +16,6 @@ const TransactionsCard = ({ totalRevenue, categories }: { totalRevenue: number, 
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        {/* الجانب الأيسر: الرقم الكبير والمقارنة */}
         <div>
           <div className="flex items-baseline gap-1">
             <span className="text-white text-5xl font-black">${totalRevenue.toLocaleString()}</span>
@@ -31,7 +28,6 @@ const TransactionsCard = ({ totalRevenue, categories }: { totalRevenue: number, 
           </div>
         </div>
 
-        {/* الجانب الأيمن: أشرطة التقدم للفئات */}
         <div className="space-y-6">
           {categories.map((cat) => (
             <div key={cat.name} className="space-y-2">

@@ -20,7 +20,6 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 const SalesChart = ({ data }: { data: SalesChartData[] }) => {
-  console.log(data);
   return (
     <div className="bg-[#1A1A1A] p-6 rounded-[24px] border border-white/5 w-full h-[400px] flex flex-col">
       <div className="flex justify-between items-center mb-6">

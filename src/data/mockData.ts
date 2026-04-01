@@ -9,7 +9,7 @@ export const productsData: Product[] = [
     costPrice: 15, 
     image: 'https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=200',
     reviews: [
-      { id: 'r1', userName: 'Alex Johnson', rating: 5, comment: 'Very comfortable material, fits perfectly!', date: '2026-03-18' },
+      { id: 'r1', userName: 'Alex Johnson', rating: 1, comment: 'Very comfortable material, fits perfectly!', date: '2026-03-18' },
       { id: 'r2', userName: 'Maria Garcia', rating: 4, comment: 'Good quality, but shipping took a bit long.', date: '2026-03-15' }
     ]
   },
@@ -21,7 +21,7 @@ export const productsData: Product[] = [
     costPrice: 50, 
     image: 'https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?w=200',
     reviews: [
-      { id: 'r3', userName: 'Sophie Chen', rating: 5, comment: 'Absolutely luxurious feel. Worth every penny.', date: '2026-03-17' }
+      { id: 'r3', userName: 'Sophie Chen', rating: 3, comment: 'Absolutely luxurious feel. Worth every penny.', date: '2026-03-17' }
     ]
   },
   { 
@@ -44,7 +44,7 @@ export const productsData: Product[] = [
     costPrice: 10, 
     image: 'https://images.unsplash.com/photo-1524380364757-39dc5e6e5c0d?w=200',
     reviews: [
-      { id: 'r6', userName: 'David Smith', rating: 5, comment: 'Genuine leather, simple and elegant.', date: '2026-03-16' }
+      { id: 'r6', userName: 'David Smith', rating: 4, comment: 'Genuine leather, simple and elegant.', date: '2026-03-16' }
     ]
   },
   { 
@@ -77,36 +77,32 @@ export const productsData: Product[] = [
     costPrice: 120, 
     image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=200',
     reviews: [
-      { id: 'r9', userName: 'Isabella B.', rating: 5, comment: 'Stunning piece, gets many compliments.', date: '2026-03-18' }
+      { id: 'r9', userName: 'Isabella B.', rating: 4, comment: 'Stunning piece, gets many compliments.', date: '2026-03-18' }
     ]
   },
 ];
 
-// Week Orders المحدثة بخاصية day
-
-// ... (productsData تبقى كما هي بدون تغيير)
-
 export const ordersData: Order[] = [
   // Completed Orders
-  { id: "ORD-12-1", customerName: "Ahmed", date: "2026-03-12", day: "Thu", status: "completed", items: [{ productId: "p1", quantity: 5 }] },
-  { id: "ORD-12-2", customerName: "Sami", date: "2026-03-12", day: "Thu", status: "completed", items: [{ productId: "p4", quantity: 3 }] },
-  { id: "ORD-13-1", customerName: "Sara", date: "2026-03-13", day: "Fri", status: "completed", items: [{ productId: "p2", quantity: 1 }, { productId: "p4", quantity: 2 }] },
-  { id: "ORD-14-1", customerName: "Ali", date: "2026-03-14", day: "Sat", status: "completed", items: [{ productId: "p3", quantity: 4 }] },
-  { id: "ORD-15-1", customerName: "Mona", date: "2026-03-15", day: "Sun", status: "completed", items: [{ productId: "p7", quantity: 2 }] },
-  { id: "ORD-16-1", customerName: "Noor", date: "2026-03-16", day: "Mon", status: "completed", items: [{ productId: "p5", quantity: 3 }, { productId: "p1", quantity: 2 }] },
-  { id: "ORD-17-1", customerName: "Huda", date: "2026-03-17", day: "Tue", status: "completed", items: [{ productId: "p1", quantity: 1 }, { productId: "p6", quantity: 5 }] },
-  { id: "ORD-18-1", customerName: "Zaid", date: "2026-03-18", day: "Wed", status: "completed", items: [{ productId: "p1", quantity: 2 }] },
-  { id: "ORD-18-2", customerName: "Laila", date: "2026-03-18", day: "Wed", status: "completed", items: [{ productId: "p7", quantity: 1 }] },
-  { id: "ORD-18-3", customerName: "Omar", date: "2026-03-18", day: "Wed", status: "completed", items: [{ productId: "p3", quantity: 2 }] },
+  { id: "ORD-12-1", customerName: "Ahmed", date: "2026-03-12", day: "Mon", status: "completed", items: [{ productId: "p1", quantity: 5 }], source: "Social Media" },
+  { id: "ORD-12-2", customerName: "Sami", date: "2026-03-12", day: "Mon", status: "completed", items: [{ productId: "p4", quantity: 3 }], source: "Direct" },
+  { id: "ORD-13-1", customerName: "Sara", date: "2026-03-13", day: "Tue", status: "completed", items: [{ productId: "p2", quantity: 1 }, { productId: "p4", quantity: 2 }], source: "Organic Search" },
+  { id: "ORD-14-1", customerName: "Ali", date: "2026-03-14", day: "Wed", status: "completed", items: [{ productId: "p3", quantity: 4 }], source: "Social Media" },
+  { id: "ORD-15-1", customerName: "Mona", date: "2026-03-15", day: "Thu", status: "completed", items: [{ productId: "p7", quantity: 2 }], source: "Referral" },
+  { id: "ORD-16-1", customerName: "Noor", date: "2026-03-16", day: "Fri", status: "completed", items: [{ productId: "p5", quantity: 3 }, { productId: "p1", quantity: 2 }], source: "Social Media" },
+  { id: "ORD-17-1", customerName: "Huda", date: "2026-03-17", day: "Sat", status: "completed", items: [{ productId: "p1", quantity: 1 }, { productId: "p6", quantity: 5 }], source: "Organic Search" },
+  { id: "ORD-18-1", customerName: "Zaid", date: "2026-03-18", day: "Sun", status: "completed", items: [{ productId: "p1", quantity: 2 }], source: "Social Media" },
+  { id: "ORD-18-2", customerName: "Laila", date: "2026-03-18", day: "Sun", status: "completed", items: [{ productId: "p7", quantity: 1 }], source: "Direct" },
+  { id: "ORD-18-3", customerName: "Omar", date: "2026-03-18", day: "Sun", status: "completed", items: [{ productId: "p3", quantity: 2 }], source: "Social Media" },
 
   // Not Completed
-  { id: "ORD-18-4", customerName: "Khaled", date: "2026-03-18", day: "Wed", status: "cancelled", items: [{ productId: "p1", quantity: 1 }] },
-  { id: "ORD-17-5", customerName: "Faten", date: "2026-03-17", day: "Tue", status: "new", items: [{ productId: "p2", quantity: 1 }] },
-  { id: "ORD-16-8", customerName: "Yassin", date: "2026-03-16", day: "Mon", status: "inprogress", items: [{ productId: "p4", quantity: 5 }] },
-  { id: "ORD-15-4", customerName: "Rayan", date: "2026-03-15", day: "Sun", status: "new", items: [{ productId: "p3", quantity: 1 }] },
-  { id: "ORD-15-4", customerName: "Roma", date: "2026-03-15", day: "Sun", status: "cancelled", items: [{ productId: "p3", quantity: 1 }] },
-  { id: "ORD-15-4", customerName: "Lola", date: "2026-03-15", day: "Sun", status: "new", items: [{ productId: "p3", quantity: 1 }] },
-  { id: "ORD-15-4", customerName: "Ehssan", date: "2026-03-15", day: "Sun", status: "cancelled", items: [{ productId: "p3", quantity: 1 }] },
-  { id: "ORD-15-4", customerName: "Salim", date: "2026-03-15", day: "Sun", status: "inprogress", items: [{ productId: "p3", quantity: 1 }] },
-  { id: "ORD-15-4", customerName: "Mazen", date: "2026-03-15", day: "Sun", status: "inprogress", items: [{ productId: "p3", quantity: 1 }] }
+  { id: "ORD-18-4", customerName: "Khaled", date: "2026-03-18", day: "Wed", status: "cancelled", items: [{ productId: "p1", quantity: 1 }], source: "Direct" },
+  { id: "ORD-17-5", customerName: "Faten", date: "2026-03-17", day: "Tue", status: "new", items: [{ productId: "p2", quantity: 1 }], source: "Social Media" },
+  { id: "ORD-16-8", customerName: "Yassin", date: "2026-03-16", day: "Mon", status: "inprogress", items: [{ productId: "p4", quantity: 5 }], source: "Organic Search" },
+  { id: "ORD-15-4", customerName: "Rayan", date: "2026-03-15", day: "Sun", status: "new", items: [{ productId: "p3", quantity: 1 }], source: "Referral" },
+  { id: "ORD-15-4", customerName: "Roma", date: "2026-03-15", day: "Sun", status: "cancelled", items: [{ productId: "p3", quantity: 1 }], source: "Social Media" },
+  { id: "ORD-15-4", customerName: "Lola", date: "2026-03-15", day: "Sun", status: "new", items: [{ productId: "p3", quantity: 1 }], source: "Direct" },
+  { id: "ORD-15-4", customerName: "Ehssan", date: "2026-03-15", day: "Sun", status: "cancelled", items: [{ productId: "p3", quantity: 1 }], source: "Organic Search" },
+  { id: "ORD-15-4", customerName: "Salim", date: "2026-03-15", day: "Sun", status: "inprogress", items: [{ productId: "p3", quantity: 1 }], source: "Social Media" },
+  { id: "ORD-15-4", customerName: "Mazen", date: "2026-03-15", day: "Sun", status: "inprogress", items: [{ productId: "p3", quantity: 1 }], source: "Direct" }
 ];

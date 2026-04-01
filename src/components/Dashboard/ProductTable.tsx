@@ -1,5 +1,4 @@
-import type { ProductStat } from "../../hooks/useDashboard";
-
+import type { ProductStat } from "../../Types";
 interface ProductTableProps {
   products: ProductStat[]; 
 }
