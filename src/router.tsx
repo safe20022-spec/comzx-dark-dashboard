@@ -1,7 +1,8 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Outlet } from 'react-router-dom';
 import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
+import ProductPage from './pages/ProductPage';
 
 export const router = createBrowserRouter([
   {
@@ -14,7 +15,17 @@ export const router = createBrowserRouter([
       },
       {
         path: 'products',
-        element: <Products />,
+        element: <div className="w-full"><Outlet /></div>, 
+        children: [
+          {
+            index: true,
+            element: <Products />, 
+          },
+          {
+            path: 'detail/:id',
+            element: <ProductPage />, 
+          },
+        ],
       },
     ],
   },
