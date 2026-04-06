@@ -70,7 +70,12 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
               <button className="bg-[#161616] p-3 rounded-2xl border border-white/5 text-gray-400 hover:text-white transition-colors">
                 <Download size={18} />
               </button>
-              <button className="bg-[#FF9100] text-black font-bold px-5 py-3 rounded-2xl flex items-center gap-2 hover:bg-[#FF9100]/90 transition-colors text-sm">
+              
+              {/* 🛠️ ADDED: onClick event to navigate to create product page */}
+              <button 
+                onClick={() => navigate('/products/create')}
+                className="bg-[#FF9100] text-black font-bold px-5 py-3 rounded-2xl flex items-center gap-2 hover:bg-[#FF9100]/90 transition-colors text-sm"
+              >
                 <Plus size={18} />
                 Add Product
               </button>

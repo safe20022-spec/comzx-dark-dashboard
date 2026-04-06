@@ -3,6 +3,7 @@ import MainLayout from './layouts/MainLayout';
 import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import ProductPage from './pages/ProductPage';
+import CreateProduct from './pages/CreateProduct'; 
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ export const router = createBrowserRouter([
           {
             path: 'detail/:id',
             element: <ProductPage />, 
+          },
+          {
+            path: 'create', 
+            element: <CreateProduct />, 
           },
         ],
       },
