@@ -35,12 +35,6 @@ const ProductHeaderInfo = ({ product }: ProductHeaderInfoProps) => {
         </div>
       </div>
 
-      {/* Edit Button */}
-      <button className="flex items-center gap-2 bg-[#161616] hover:bg-[#1C1C1C] text-emerald-500 border border-emerald-500/20 px-4 py-2.5 rounded-xl text-sm font-bold transition-colors h-fit">
-        <Edit3 size={16} />
-        Edit
-      </button>
-
     </div>
   );
 };

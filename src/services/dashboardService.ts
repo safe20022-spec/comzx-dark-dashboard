@@ -52,3 +52,45 @@ export const createNewProduct = async (newProduct: Product): Promise<Product> =>
     }, NETWORK_DELAY);
   });
 };
+
+
+export const deleteProduct = async (productId: string): Promise<boolean> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // 1. Get current products from LocalStorage
+      const stored = localStorage.getItem('products');
+      const currentProducts: Product[] = stored ? JSON.parse(stored) : [];
+      
+      // 2. Filter out the target product
+      const updatedProducts = currentProducts.filter(
+        (product) => product.id !== productId
+      );
+      
+      // 3. Save it back to LocalStorage
+      localStorage.setItem('products', JSON.stringify(updatedProducts));
+      
+      resolve(true);
+    }, NETWORK_DELAY);
+  });
+};
+
+/**
+ * Updates an existing product in LocalStorage by its ID.
+ */
+export const updateProduct = async (updatedProduct: Product): Promise<Product> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const stored = localStorage.getItem('products');
+      const currentProducts: Product[] = stored ? JSON.parse(stored) : [];
+      
+      // Map through products and replace the updated one
+      const updatedProducts = currentProducts.map((product) =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      );
+      
+      localStorage.setItem('products', JSON.stringify(updatedProducts));
+      
+      resolve(updatedProduct);
+    }, NETWORK_DELAY);
+  });
+};

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { Search, MoreVertical, SlidersHorizontal, Download, Plus, LayoutGrid, List } from 'lucide-react';
+import { Search, SlidersHorizontal, Download, Plus, LayoutGrid, List, Trash2 } from 'lucide-react'; // 🛠️ Replaced MoreVertical with Trash2
 import type { Product } from '../../Types';
 import { useProducts } from '../../hooks/useProducts';
 import ProductFilters from './ProductFilters';
 import ProductGridCard from './ProductGridCard';
 import { useNavigate } from 'react-router-dom';
+import { deleteProduct } from '../../services/dashboardService';
 
 interface ProductsListProps {
   products: Product[] | undefined;
@@ -26,8 +27,21 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
     counts 
   } = useProducts(products);
 
-  // State to handle layout view switching
   const [viewMode, setViewMode] = useState<'LIST' | 'GRID'>('LIST');
+
+  // 🛠️ Function to handle delete in list & grid view
+  const handleDelete = async (id: string) => {
+    const confirmDelete = window.confirm('Are you sure you want to delete this product?');
+    if (confirmDelete) {
+      try {
+        await deleteProduct(id);
+        // Force refresh the page to reload the LocalStorage state
+        window.location.reload();
+      } catch (error) {
+        console.error('Failed to delete product:', error);
+      }
+    }
+  };
 
   if (isLoading) {
     return <div className="text-gray-500 text-center p-10">Loading products...</div>;
@@ -35,8 +49,6 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-      
-      {/* Left Column: Product Filters (Visible in both modes) */}
       <div className="lg:col-span-1">
         <ProductFilters 
           selectedCategories={selectedCategories}
@@ -46,10 +58,7 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
         />
       </div>
 
-      {/* Right Column: Main Products Content */}
       <div className="lg:col-span-3 h-fit">
-        
-        {/* Actions Container */}
         <div className="bg-[#111111] p-6 rounded-[32px] border border-white/5 mb-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div className="relative flex-grow max-w-md">
@@ -71,7 +80,6 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
                 <Download size={18} />
               </button>
               
-              {/* 🛠️ ADDED: onClick event to navigate to create product page */}
               <button 
                 onClick={() => navigate('/products/create')}
                 className="bg-[#FF9100] text-black font-bold px-5 py-3 rounded-2xl flex items-center gap-2 hover:bg-[#FF9100]/90 transition-colors text-sm"
@@ -83,7 +91,6 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
           </div>
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            {/* Dynamic Tabs */}
             <div className="flex items-center gap-6 text-sm border-b border-white/5 md:border-b-0 pb-2 md:pb-0">
               <button 
                 onClick={() => setActiveTab('ALL')}
@@ -107,7 +114,6 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
               </button>
             </div>
 
-            {/* View Toggle Buttons (Grid / List) */}
             <div className="flex items-center gap-2 bg-[#161616] p-1 rounded-xl border border-white/5 self-end md:self-auto">
               <button 
                 onClick={() => setViewMode('GRID')}
@@ -125,19 +131,16 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
           </div>
         </div>
 
-        {/* Dynamic Display: Table OR Grid */}
         {viewMode === 'LIST' ? (
           <div className="bg-[#111111] p-6 rounded-[32px] border border-white/5">
-            {/* Table Head */}
             <div className="grid grid-cols-12 text-xs font-bold text-gray-600 uppercase mb-4 px-4">
               <div className="col-span-5">Product</div>
               <div className="col-span-2 text-right">Price</div>
               <div className="col-span-2 text-center">Status</div>
               <div className="col-span-2 text-right">Total Earning</div>
-              <div className="col-span-1 text-center"></div>
+              <div className="col-span-1 text-center">Action</div> {/* 🛠️ Added Action label */}
             </div>
 
-            {/* Table Rows */}
             <div className="space-y-3">
               {filteredProducts.map((product) => {
                 const estimatedSold = product.reviews ? product.reviews.length * 5 : 10;
@@ -185,10 +188,13 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
 
                     <div className="col-span-1 flex justify-center">
                       <button 
-                        onClick={(e) => e.stopPropagation()}
-                        className="text-gray-600 hover:text-white transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(product.id); // 🛠️ Call delete function
+                        }}
+                        className="text-gray-600 hover:text-rose-500 transition-colors"
                       >
-                        <MoreVertical size={18} />
+                        <Trash2 size={18} />
                       </button>
                     </div>
                   </div>
@@ -197,15 +203,17 @@ const ProductsList = ({ products, isLoading }: ProductsListProps) => {
             </div>
           </div>
         ) : (
-          /* Grid View Mode */
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             {filteredProducts.map((product) => (
-              <ProductGridCard key={product.id} product={product} />
+              <ProductGridCard 
+                key={product.id} 
+                product={product} 
+                onDelete={handleDelete} // 🛠️ Pass delete down to Grid Card
+              />
             ))}
           </div>
         )}
 
-        {/* Empty State */}
         {filteredProducts.length === 0 && (
           <div className="text-center text-gray-600 py-10 text-sm bg-[#111111] rounded-[32px] border border-white/5">
             No products found in this section.

@@ -1,12 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Trash2 } from 'lucide-react'; // 🛠️ Import Trash icon
 import type { Product } from '../../Types';
 
 interface ProductGridCardProps {
   product: Product;
+  onDelete: (id: string) => void; // 🛠️ Accept delete function as prop
 }
 
-const ProductGridCard = ({ product }: ProductGridCardProps) => {
+const ProductGridCard = ({ product, onDelete }: ProductGridCardProps) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -19,7 +21,6 @@ const ProductGridCard = ({ product }: ProductGridCardProps) => {
       className="bg-[#111111] border border-white/5 rounded-[24px] overflow-hidden hover:border-white/10 transition-colors cursor-pointer group"
     >
       
-      {/* Image and Status Badge */}
       <div className="relative aspect-square bg-[#161616] p-4 flex items-center justify-center">
         {product.image ? (
           <img 
@@ -43,14 +44,18 @@ const ProductGridCard = ({ product }: ProductGridCardProps) => {
           {product.status}
         </span>
         
-        <input 
-          type="checkbox" 
-          onClick={(e) => e.stopPropagation()}
-          className="absolute top-4 right-4 accent-[#FF9100] w-4 h-4 cursor-pointer"
-        />
+        {/* 🛠️ REPLACED: Checkbox with a real delete button */}
+        <button 
+          onClick={(e) => {
+            e.stopPropagation(); // Stops card click from triggering
+            onDelete(product.id); // Triggers delete method from parent
+          }}
+          className="absolute top-4 right-4 bg-black/50 hover:bg-rose-500/20 p-2 rounded-xl text-gray-400 hover:text-rose-500 transition-colors"
+        >
+          <Trash2 size={16} />
+        </button>
       </div>
 
-      {/* Product Details */}
       <div className="p-5 space-y-3">
         <div>
           <span className="text-xs text-gray-600 font-medium uppercase tracking-wider">

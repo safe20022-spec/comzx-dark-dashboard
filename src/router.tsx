@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import ProductPage from './pages/ProductPage';
 import CreateProduct from './pages/CreateProduct'; 
+import EditProduct from './pages/EditProduct'; 
 
 export const router = createBrowserRouter([
   {
@@ -29,6 +30,11 @@ export const router = createBrowserRouter([
           {
             path: 'create', 
             element: <CreateProduct />, 
+          },
+          
+          {
+            path: 'edit/:id', 
+            element: <EditProduct />, 
           },
         ],
       },
