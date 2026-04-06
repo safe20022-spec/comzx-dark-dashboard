@@ -7,10 +7,8 @@ import ProductCategoryForm from '../components/Products/ProductCategoryForm';
 import type { CategoryType } from '../components/Products/ProductCategoryForm';
 import ProductGalleryUpload from '../components/Products/ProductGalleryUpload';
 import type { Product } from '../Types';
-
-// 1. Import the mock API function you just created
-// Note: Replace '../api/products' with your actual file path
 import { createNewProduct } from '../services/dashboardService';
+import { toast } from 'react-toastify'; 
 
 interface CreateProductProps {
   setProducts?: React.Dispatch<React.SetStateAction<Product[]>>;
@@ -27,12 +25,44 @@ const CreateProduct = ({ setProducts }: CreateProductProps) => {
   const [status, setStatus] = useState<'In Stock' | 'Canceled'>('In Stock');
   const [image, setImage] = useState<File | null>(null);
 
-  // 2. Marked the function as async to handle the API promise
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!name || !description || !category || !price || !costPrice || !image) {
-      alert('Please fill all fields and upload an image.');
+    // 🛡️ Detailed Data Validation with English Toast Messages
+    if (!name.trim()) {
+      toast.error('Product name cannot be empty!');
+      return;
+    }
+
+    if (!description.trim()) {
+      toast.error('Please add a product description!');
+      return;
+    }
+
+    if (!category) {
+      toast.error('Please select a product category!');
+      return;
+    }
+
+    const parsedPrice = parseFloat(price);
+    const parsedCost = parseFloat(costPrice);
+
+    if (isNaN(parsedPrice) || parsedPrice <= 0) {
+      toast.error('Sale price must be a number greater than zero!');
+      return;
+    }
+
+    if (isNaN(parsedCost) || parsedCost < 0) {
+      toast.error('Cost price cannot be negative!');
+      return;
+    }
+
+    if (parsedCost > parsedPrice) {
+      toast.warn('Warning: Cost price is higher than sale price! You might lose money.');
+    }
+
+    if (!image) {
+      toast.error('Please upload a product image!');
       return;
     }
 
@@ -42,8 +72,8 @@ const CreateProduct = ({ setProducts }: CreateProductProps) => {
       id: Math.random().toString(36).substr(2, 9), 
       name,
       category: category as "Clothing" | "Lingerie" | "Sportswear" | "Accessories",
-      price: parseFloat(price),
-      costPrice: parseFloat(costPrice), 
+      price: parsedPrice,
+      costPrice: parsedCost, 
       status: status === 'In Stock' ? 'In Stock' : 'Canceled',
       image: imageUrl,
       reviews: [], 
@@ -51,16 +81,18 @@ const CreateProduct = ({ setProducts }: CreateProductProps) => {
     };
 
     try {
-      // 3. Call the mock API and wait for it to finish pushing to productsData
       await createNewProduct(newProduct);
-
-      console.log('Product created and saved to mock data successfully!');
       
-      // 4. Navigate back to products only after the API operation is complete
-      navigate('/products');
+      // 🎉 إشعار النجاح
+      toast.success('Product created successfully! 🚀');
+      
+      setTimeout(() => {
+        navigate('/products');
+      }, 1500);
+
     } catch (error) {
       console.error('Failed to create product:', error);
-      alert('Something went wrong while creating the product.');
+      toast.error('Something went wrong while creating the product.');
     }
   };
 

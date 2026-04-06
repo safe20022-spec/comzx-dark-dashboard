@@ -39,4 +39,4 @@ const ProductHeaderInfo = ({ product }: ProductHeaderInfoProps) => {
   );
 };
 
-export default React.memo(ProductHeaderInfo);
+export default React.memo(ProductHeaderInfo); 
